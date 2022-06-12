@@ -61,7 +61,49 @@ function icons(div: HTMLDivElement):void{
     icons.appendChild(edit);
     icons.appendChild(deleteIcon);
     const editItems = document.querySelectorAll('.fa-edit') as NodeListOf<HTMLElement>;
-    // editI(editItems);
+  
+    editItems.forEach((editItem : HTMLElement) => {
+        // console.log(editItem);
+        editItem.addEventListener('click', () => {
+
+            const edit : string = editItem.parentElement.parentElement.childNodes[0].textContent;
+
+            editItem.parentElement.parentElement.childNodes[0].textContent = edit;
+            // modification du text avec contenteditable
+            editItem.parentElement.parentElement.childNodes[0].contentEditable = 'true';
+            editItem.parentElement.parentElement.childNodes[0].focus();
+            editItem.parentElement.parentElement.childNodes[0].addEventListener('blur', () => {
+                editItem.parentElement.parentElement.childNodes[0].contentEditable = 'false';
+            }
+            );
+
+            editItem.parentElement.parentElement.childNodes[0].addEventListener('keypress', (e: KeyboardEvent) => {
+                if (e.key === 'Enter') {
+                    editItem.parentElement.parentElement.childNodes[0].contentEditable = 'false';
+
+                    const items = localStorage.getItem('items');
+                    const itemsArray : string [] = JSON.parse(items!);
+                    itemsArray.forEach(function(item : string) {
+                        if (item === edit) {
+
+                            for (let i = 0; i < itemsArray.length; i++) {
+                                if (itemsArray[i] === edit) {
+                                    itemsArray[i] = editItem.parentElement.parentElement.childNodes[0].textContent;
+
+                                    localStorage.setItem('items', JSON.stringify(itemsArray));
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+
+            // console.log(editItem.parentElement.parentElement.childNodes[0]);
+        });
+
+        });
+
+
     
 }
 
@@ -81,15 +123,4 @@ function getItems() :void {
 }
 
 getItems();
-
-function editI(div : NodeListOf<HTMLElement>) :void{
-
-}
-
-
-
-
-
-
-
 
