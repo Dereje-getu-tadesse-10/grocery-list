@@ -61,7 +61,8 @@ function icons(div: HTMLDivElement):void{
     icons.appendChild(edit);
     icons.appendChild(deleteIcon);
     const editItems = document.querySelectorAll('.fa-edit') as NodeListOf<HTMLElement>;
-  
+
+    // edit button
     editItems.forEach((editItem : HTMLElement) => {
         // console.log(editItem);
         editItem.addEventListener('click', () => {
@@ -98,15 +99,34 @@ function icons(div: HTMLDivElement):void{
                 }
             });
 
-            // console.log(editItem.parentElement.parentElement.childNodes[0]);
         });
 
-        });
+    });
 
+    // delete button
+    const delEL = document.querySelectorAll('.fa-trash-alt') as NodeListOf<HTMLElement>;
+    delEL.forEach((deleteItem : HTMLElement) => {
+        deleteItem.addEventListener('click', () => {
+            const items = localStorage.getItem('items');
+            const itemsArray : string [] = JSON.parse(items!);
+            itemsArray.forEach((item : string) => {
+                if (item === deleteItem.parentElement.parentElement.childNodes[0].textContent) {
+                    for (let i = 0; i < itemsArray.length; i++) {
+                        if (itemsArray[i] === deleteItem.parentElement.parentElement.childNodes[0].textContent) {
+                            itemsArray.splice(i, 1);
+                            localStorage.setItem('items', JSON.stringify(itemsArray));
+                        }
+                    }
+                }
+            }
+            );
+            deleteItem.parentElement.parentElement.remove();
+        }
+        );
 
+    })
     
 }
-
 
 
 
