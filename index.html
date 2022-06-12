@@ -4,11 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Grocery List</title>
 </head>
 <body>
     
+    <main>
+        <h1>Grocery List</h1>
+        <form>
+            <input type="text">
+            <button type="submit">submit</button>
+        </form>
+        <!-- List of groceries: -->
+        <div class="list">
+            <div class="item">
+                <p>Item 1</p>
+                <div class="edit">
+                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-trash-alt"></i>
+                </div>
+            </div>
+        </div>
+        <div class="clear">
+            Clear items
+        </div>
+    </main>
+
     <script src="./dist/bundle.js"></script>
 </body>
 </html>
