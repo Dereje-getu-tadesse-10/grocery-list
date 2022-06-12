@@ -24,7 +24,7 @@ function addItem(e: Event) :void {
     items.push(newItem);
     localStorage.setItem('items', JSON.stringify(items));
     input.value = '';
-    console.log(items);
+
     addToHtml(newItem);
 }
 
@@ -58,7 +58,38 @@ function icons(div: HTMLDivElement):void{
     div.appendChild(icons);
     icons.appendChild(edit);
     icons.appendChild(deleteIcon);
+    const editItems = document.querySelectorAll('.fa-edit') as NodeListOf<HTMLElement>;
+
+    editItems.forEach((editItem : HTMLElement) => {
+        console.log(editItem);
+        editItem.addEventListener('click', () => {
+            
+            const edit : string = editItem.parentElement.parentElement.childNodes[0].textContent;
+
+            editItem.parentElement.parentElement.childNodes[0].textContent = edit;
+            // mofication du text avec contenteditable
+            editItem.parentElement.parentElement.childNodes[0].contentEditable = 'true';
+            editItem.parentElement.parentElement.childNodes[0].focus();
+            editItem.parentElement.parentElement.childNodes[0].addEventListener('blur', () => {
+                editItem.parentElement.parentElement.childNodes[0].contentEditable = 'false';
+            }
+            );
+            // modification du text au moment du click sur le bouton edit
+            editItem.parentElement.parentElement.childNodes[0].addEventListener('keypress', (e: KeyboardEvent) => {
+                if (e.key === 'Enter') {
+                    editItem.parentElement.parentElement.childNodes[0].contentEditable = 'false';
+                }
+            });
+
+            console.log(editItem.parentElement.parentElement.childNodes[0]);
+        
+            
+        });
+
+    })
+    
 }
+
 
 
 
