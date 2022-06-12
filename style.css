@@ -68,7 +68,7 @@ button{
     padding: 3px;
     height: 40px;
     width: 75%;
-    margin: auto;
+    margin: 10px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;

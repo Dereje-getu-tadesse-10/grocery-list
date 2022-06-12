@@ -24,6 +24,7 @@ function addItem(e: Event) {
     localStorage.setItem('items', JSON.stringify(items));
     input.value = '';
     console.log(items);
+    addToHtml(newItem);
 }
 
 // edit item
@@ -33,6 +34,28 @@ function editItem(e: Event) {
 
 }
 
-const newDiv = document.createElement('div');
-newDiv.classList.add('item');
+function addToHtml(input: string) {
+
+    // items div
+    const newDiv = document.createElement('div');
+    newDiv.classList.add('item');
+    const items = document.createElement('p');
+    items.textContent = input;
+
+    // icons div
+
+    const icons = document.createElement('div');
+    icons.classList.add('edit');
+    const edit = document.createElement('i');
+    edit.classList.add('fas', 'fa-edit');
+    const deleteIcon = document.createElement('i');
+    deleteIcon.classList.add('fas', 'fa-trash-alt');
+
+    newDiv.appendChild(items);
+    icons.appendChild(edit);
+    icons.appendChild(deleteIcon);
+    newDiv.appendChild(icons);
+    itemDiv.appendChild(newDiv);
+
+}
 
