@@ -1,3 +1,6 @@
+
+
+
 const form = document.querySelector('form') as HTMLFormElement;
 const input = document.querySelector('input') as HTMLInputElement;
 const itemDiv = document.querySelector('.list') as HTMLDivElement;
@@ -5,10 +8,11 @@ const editDiv = document.querySelector('.edit') as HTMLDivElement;
 const editEl = document.querySelector('.fa-edit') as HTMLElement;
 const deleteEl = document.querySelector('.fa-trash-alt') as HTMLElement;
 
+const temp : string[] = [];
 
 form.addEventListener('submit', addItem);
 
-function addItem(e: Event) {
+function addItem(e: Event) :void {
   e.preventDefault();
   const newItem = input.value;
     let items: string[] = [];
@@ -27,14 +31,13 @@ function addItem(e: Event) {
     addToHtml(newItem);
 }
 
-// edit item
-// editEl.addEventListener('click', editItem);
-function editItem(e: Event) {
+
+function editItem(e: Event) :void {
     e.preventDefault();
 
 }
 
-function addToHtml(input: string) {
+function addToHtml(input: string) :void {
 
     // items div
     const newDiv = document.createElement('div');
@@ -58,4 +61,20 @@ function addToHtml(input: string) {
     itemDiv.appendChild(newDiv);
 
 }
+
+function getItems() :void {
+    const items : string = localStorage.getItem('items');
+    // Ajout des items 1 par 1 dans le dom au chargement de la page
+    if (items !== null) {
+        const itemArray = JSON.parse(items);
+        itemArray.forEach(function (item : string) {
+            addToHtml(item);
+        });
+    }
+}
+
+getItems();
+
+
+
 
