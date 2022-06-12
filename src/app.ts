@@ -4,6 +4,7 @@ const itemDiv = document.querySelector('.list') as HTMLDivElement;
 const editDiv = document.querySelector('.edit') as HTMLDivElement;
 const editEl = document.querySelectorAll('.fa-edit') as  NodeListOf<HTMLElement>;
 const deleteEl = document.querySelectorAll('.fa-trash-alt') as  NodeListOf<HTMLElement>;
+const clearAllItems = document.querySelector('.clear') as HTMLDivElement;
 
 const temp : string[] = [];
 
@@ -16,18 +17,19 @@ function addItem(e: Event) :void {
   const newItem = input.value;
     let items: string[] = [];
 
-    if (localStorage.getItem('items') === null) {
-        items = [];
+    if (newItem !== '') {
+        if (localStorage.getItem('items') === null) {
+            items = [];
+            items.push(newItem);
+            localStorage.setItem('items', JSON.stringify(items));
+        } else {
+            items = JSON.parse(localStorage.getItem('items')!);
+            items.push(newItem);
+            localStorage.setItem('items', JSON.stringify(items));
+        }
+        addToHtml(newItem);
     }
-    else 
-    {
-        items = JSON.parse(localStorage.getItem('items')!);
-    }
-    items.push(newItem);
-    localStorage.setItem('items', JSON.stringify(items));
     input.value = '';
-
-    addToHtml(newItem);
 }
 
 function addToHtml(input: string) :void {
@@ -128,8 +130,7 @@ function icons(div: HTMLDivElement):void{
     
 }
 
-
-
+// all items from local storage 
 function getItems() :void {
 
     const items = localStorage.getItem('items');
@@ -141,6 +142,15 @@ function getItems() :void {
         });
     }
 }
-
 getItems();
+
+// clear all items
+
+clearAllItems.addEventListener('click', clearAllItem);
+function clearAllItem() {
+   localStorage.clear();
+    itemDiv.textContent = '';
+}
+
+
 
