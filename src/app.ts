@@ -62,13 +62,12 @@ function icons(div: HTMLDivElement):void{
     div.appendChild(icons);
     icons.appendChild(edit);
     icons.appendChild(deleteIcon);
-    const editItems = document.querySelectorAll('.fa-edit') as NodeListOf<HTMLElement>;
+    const editItems = Array.from(document.querySelectorAll('.fa-edit') as NodeListOf<HTMLElement>);
 
-    // edit button
     editItems.forEach((editItem : HTMLElement) => {
         // console.log(editItem);
         editItem.addEventListener('click', () => {
-
+            
             const edit : string = editItem.parentElement.parentElement.childNodes[0].textContent;
 
             editItem.parentElement.parentElement.childNodes[0].textContent = edit;
@@ -86,7 +85,7 @@ function icons(div: HTMLDivElement):void{
 
                     const items = localStorage.getItem('items');
                     const itemsArray : string [] = JSON.parse(items!);
-                    itemsArray.forEach(function(item : string) {
+                    itemsArray.forEach((item : string)=> {
                         if (item === edit) {
 
                             for (let i = 0; i < itemsArray.length; i++) {
@@ -95,6 +94,7 @@ function icons(div: HTMLDivElement):void{
 
                                     localStorage.setItem('items', JSON.stringify(itemsArray));
                                 }
+                                return itemsArray;
                             }
                         }
                     });
