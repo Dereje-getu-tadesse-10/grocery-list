@@ -1,12 +1,9 @@
-
-
-
 const form = document.querySelector('form') as HTMLFormElement;
 const input = document.querySelector('input') as HTMLInputElement;
 const itemDiv = document.querySelector('.list') as HTMLDivElement;
 const editDiv = document.querySelector('.edit') as HTMLDivElement;
-const editEl = document.querySelector('.fa-edit') as HTMLElement;
-const deleteEl = document.querySelector('.fa-trash-alt') as HTMLElement;
+const editEl = document.querySelectorAll('.fa-edit') as  NodeListOf<HTMLElement>;
+const deleteEl = document.querySelectorAll('.fa-trash-alt') as  NodeListOf<HTMLElement>;
 
 const temp : string[] = [];
 
@@ -31,22 +28,26 @@ function addItem(e: Event) :void {
     addToHtml(newItem);
 }
 
-
-function editItem(e: Event) :void {
-    e.preventDefault();
-
+function addToHtml(input: string) :void {
+    const newDiv = document.createElement('div');
+    itemsCreated(newDiv, input);
+    icons(newDiv);
+    itemDiv.appendChild(newDiv);
 }
 
-function addToHtml(input: string) :void {
+// function create item
+ function itemsCreated(div: HTMLDivElement, input:string):void {
 
-    // items div
-    const newDiv = document.createElement('div');
-    newDiv.classList.add('item');
+   div.classList.add('item');
     const items = document.createElement('p');
     items.textContent = input;
 
-    // icons div
+   div.appendChild(items);
+}
 
+
+// function create icons
+function icons(div: HTMLDivElement):void{
     const icons = document.createElement('div');
     icons.classList.add('edit');
     const edit = document.createElement('i');
@@ -54,17 +55,15 @@ function addToHtml(input: string) :void {
     const deleteIcon = document.createElement('i');
     deleteIcon.classList.add('fas', 'fa-trash-alt');
 
-    newDiv.appendChild(items);
+    div.appendChild(icons);
     icons.appendChild(edit);
     icons.appendChild(deleteIcon);
-    newDiv.appendChild(icons);
-    itemDiv.appendChild(newDiv);
-
 }
+
+
 
 function getItems() :void {
     const items : string = localStorage.getItem('items');
-    // Ajout des items 1 par 1 dans le dom au chargement de la page
     if (items !== null) {
         const itemArray = JSON.parse(items);
         itemArray.forEach(function (item : string) {
@@ -74,6 +73,10 @@ function getItems() :void {
 }
 
 getItems();
+
+
+
+
 
 
 
